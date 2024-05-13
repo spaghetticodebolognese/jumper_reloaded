@@ -12,14 +12,23 @@ public class GamePanel extends JPanel{
     private int yDelta = 0;
     public GamePanel(){
 
-        addKeyListener(new KeyboardInputs());
+        addKeyListener(new KeyboardInputs(this));
 
+    }
+
+    public void changeXDelta(int value){
+        this.xDelta += value;
+    }
+
+    public void changeYDelta(int value){
+        this.yDelta += value;
     }
 
     public void paintComponent(Graphics g){
         super.paintComponent(g);
 
         g.fillRect(100 + xDelta, 100 + yDelta, 50, 100);
+        repaint();
 
     }
 
