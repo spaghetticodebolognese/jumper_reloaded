@@ -1,8 +1,10 @@
 package main;
 
 import entities.Player;
+import utils.LoadSave;
 
 import java.awt.*;
+import java.awt.image.BufferedImage;
 
 
 public class Game implements Runnable {
@@ -47,6 +49,8 @@ public class Game implements Runnable {
     }
 
     public void render(Graphics g){
+        BufferedImage bg = LoadSave.getSpriteSheet(LoadSave.BACKGROUND);
+        g.drawImage(bg, 0,0, GAME_WIDTH, GAME_HEIGHT, null);
         player.render(g);
     }
 

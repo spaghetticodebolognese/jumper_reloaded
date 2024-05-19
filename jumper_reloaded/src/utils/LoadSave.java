@@ -8,12 +8,13 @@ import java.io.InputStream;
 public class LoadSave {
 
     public static final String PLAYER_SPRITESHEET = "crow Animations/crow_spritesheet.png";
+    public static final String BACKGROUND = "the dark forest/Background/Night.png";
 
     public static BufferedImage getSpriteSheet(String fileName){
-        BufferedImage spriteSheet = null;
-        InputStream is = LoadSave.class.getResourceAsStream("/" + PLAYER_SPRITESHEET);
+        BufferedImage image = null;
+        InputStream is = LoadSave.class.getResourceAsStream("/" + fileName);
         try {
-            spriteSheet = ImageIO.read(is);
+            image = ImageIO.read(is);
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -24,7 +25,7 @@ public class LoadSave {
                 e.printStackTrace();
             }
         }
-        return spriteSheet;
+        return image;
     }
 
 
