@@ -1,6 +1,9 @@
 package main;
 
 import entities.Player;
+import levels.Level;
+import levels.LevelManager;
+import levels.LevelManager.*;
 import utils.LoadSave;
 
 import java.awt.*;
@@ -18,8 +21,8 @@ public class Game implements Runnable {
 
     public final static int TILES_DEFAULT_SIZE = 32;
     public final static float SCALE = 1.0f;
-    public final static int TILES_IN_WIDTH = 26;
-    public final static int TILES_IN_HEIGHT = 14;
+    public final static int TILES_IN_WIDTH = 150;       //change back to 26
+    public final static int TILES_IN_HEIGHT = 16;       //change back to 14
     public final static int TILES_SIZE = (int) (TILES_DEFAULT_SIZE * SCALE);
     public final static int GAME_WIDTH = TILES_SIZE * TILES_IN_WIDTH;
     public final static int GAME_HEIGHT = TILES_SIZE * TILES_IN_HEIGHT;
@@ -51,6 +54,7 @@ public class Game implements Runnable {
     public void render(Graphics g){
         BufferedImage bg = LoadSave.getSpriteSheet(LoadSave.BACKGROUND);
         g.drawImage(bg, 0,0, GAME_WIDTH, GAME_HEIGHT, null);
+        LevelManager.drawTiles(g);                                      // WORK IN PROGRESS!!!<-------------------
         player.render(g);
     }
 
@@ -68,6 +72,13 @@ public class Game implements Runnable {
 
         double deltaU = 0;      //updates
         double deltaF = 0;      //frames
+
+        //testwiese ------------------------------------------------
+        //Level.importCsv();
+
+        //LevelManager.drawTiles();
+
+
 
 
         while(true){
