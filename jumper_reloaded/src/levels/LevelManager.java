@@ -24,16 +24,25 @@ public class LevelManager {
 
         for (int y = 0; y < csv.size(); y++){
             for (int x = 0; x < csv.get(y).size(); x++){
-                if (!csv.get(y).get(x).equals("-1")) {
+                int tileIndex = Integer.parseInt(csv.get(y).get(x));
+                if (tileIndex != -1) {
+                    int tileX = tileIndex % 12;
+                    int tileY = tileIndex / 12;
+                    int srcX = tileX * tileSize;
+                    int srcY = tileY * tileSize;
 
-                    g.drawImage(levelSprite.getSubimage((csv.get(y).get(x)), (), tileSize, tileSize), tileSize * x, tileSize * y, null);
+                    g.drawImage(levelSprite.getSubimage(srcX, srcY, tileSize, tileSize), x * tileSize, y * tileSize, null);
 
-                    //(y * 12 * tileSize) + (x * tileSize)
-                            //spritesheet: max 168
 
                 }
             }
             }
+
+
+
+
+
+
 
 
         //g.drawImage(animations[playerAction][aniIndex], (int) x, (int) y, 128, 128, null);
