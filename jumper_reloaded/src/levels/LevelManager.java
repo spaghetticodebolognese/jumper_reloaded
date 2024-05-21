@@ -4,27 +4,36 @@ import utils.LoadSave;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.util.List;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 
 public class LevelManager {
 
     private Game game;
     private static BufferedImage levelSprite;
+    private Level levelZero;
+
+    public final static int CSV_WIDTH = 150;
+    public final static int CSV_HEIGHT = 16;
 
     public LevelManager(Game game){
         this.game = game;
+        levelZero = new Level();
 
     }
 
     public static void drawTiles(Graphics g){
+        levelSprite = null;
+
         levelSprite = LoadSave.getSpriteSheet(LoadSave.TILE_SHEET_BASE_GRASS);
         int tileSize = Game.TILES_DEFAULT_SIZE;
-        List<List<String>> csv = Level.importCsv();
+        int[][] csv = importCsv();
 
 
-        for (int y = 0; y < csv.size(); y++){
-            for (int x = 0; x < csv.get(y).size(); x++){
-                int tileIndex = Integer.parseInt(csv.get(y).get(x));
+        for (int y = 0; y < csv.length; y++){
+            for (int x = 0; x < csv[y].length; x++){
+                int tileIndex = csv[y][x];
                 if (tileIndex != -1) {
                     int tileX = tileIndex % 12;
                     int tileY = tileIndex / 12;
@@ -32,32 +41,44 @@ public class LevelManager {
                     int srcY = tileY * tileSize;
 
                     g.drawImage(levelSprite.getSubimage(srcX, srcY, tileSize, tileSize), x * tileSize, y * tileSize, null);
-
-
                 }
             }
             }
+        }
 
-
-
-
-
-
-
-
-        //g.drawImage(animations[playerAction][aniIndex], (int) x, (int) y, 128, 128, null);
-
-
-//        for (List innerList : Level.importCsv()){       //importCsv ist die outerList
-//            for (Object value : innerList){
-
-
-
-
-
-
+        public void update(){
 
         }
+
+
+    public static int[][] importCsv() {
+
+        int[][] level_0_csv = new int[CSV_HEIGHT][CSV_WIDTH];
+        String[] values;
+
+        try {
+            BufferedReader buffRead = new BufferedReader(new FileReader("C:/Users/Student/VS Studio/Java/Jumper_reloaded/jumper_reloaded/jumper_reloaded/jumper_reloaded/resources/level_data/0/test_ground.csv"));
+            String line;
+            int lineCounter = 0;
+
+            while ((line = buffRead.readLine()) != null) {
+                values = line.split(",");
+                for (int i = 0; i < values.length; i++){
+                    level_0_csv[lineCounter][i] = Integer.parseInt(values[i]);
+                }
+                lineCounter++;
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return level_0_csv;
+    }
+
+
+
+
+
+
     }
 
 

@@ -20,8 +20,11 @@ public class Player extends Entity{
     private float playerSpeed = 2.0f;
     private int playerAction = IDLE;
 
-    public Player(float x, float y){
-        super(x, y);
+    //for collision detection
+    private int[][] lvlData;
+
+    public Player(float x, float y, int width, int height){
+        super(x, y, width, height);
         loadAnimations();
     }
 
@@ -39,14 +42,21 @@ public class Player extends Entity{
 
     }
 
+    public void loadLvlData(int[][] lvlData){
+        this.lvlData = lvlData;
+    }
+
+
     public void update(){
-        setAnimation();
         updatePos();
+        updateHitbox();
         updateAnimationTick();
+        setAnimation();
     }
 
     public void render(Graphics g){
         g.drawImage(animations[playerAction][aniIndex], (int) x, (int) y, 128, 128, null);
+        drawHitBox(g);
     }
 
 

@@ -16,8 +16,9 @@ public class Game implements Runnable {
     private GamePanel gamePanel;
     private Thread gameThread;
     private final int FPS_SET = 120;
-    private final int UPS_SET = 200;
+    private final int UPS_SET = 200; //200
     private Player player;
+    private LevelManager levelManager;
 
     public final static int TILES_DEFAULT_SIZE = 32;
     public final static float SCALE = 1.0f;
@@ -37,7 +38,9 @@ public class Game implements Runnable {
     }
 
     private void initClasses(){
-        player = new Player(200, 256);
+        levelManager = new LevelManager(this);
+        player = new Player(200, 256, 128, 128);
+        //player.loadLvlData(LevelManager.importCsv());
     }
 
 
@@ -49,12 +52,13 @@ public class Game implements Runnable {
 
     public void update(){
         player.update();
+        levelManager.update();
     }
 
     public void render(Graphics g){
         BufferedImage bg = LoadSave.getSpriteSheet(LoadSave.BACKGROUND);
         g.drawImage(bg, 0,0, GAME_WIDTH, GAME_HEIGHT, null);
-        LevelManager.drawTiles(g);                                      // WORK IN PROGRESS!!!<-------------------
+        LevelManager.drawTiles(g);
         player.render(g);
     }
 
@@ -73,13 +77,10 @@ public class Game implements Runnable {
         double deltaU = 0;      //updates
         double deltaF = 0;      //frames
 
-        //testwiese ------------------------------------------------
-        //Level.importCsv();
 
-        //LevelManager.drawTiles();
-
-
-
+//        String widthTest = "-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1";
+//        System.out.println("länge: " + widthTest.split(",").length);
+            //Level.importCsvInt();
 
         while(true){
             long currentTime = System.nanoTime();

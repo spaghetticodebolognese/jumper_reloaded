@@ -1,5 +1,8 @@
 package utils;
 
+import levels.LevelManager;
+import main.Game;
+
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -32,6 +35,11 @@ public class LoadSave {
         }
         return image;
     }
+
+//    public static int[][] getLevelData(){
+//        int[][] lvlData = new int[LevelManager.CSV_HEIGHT][LevelManager.CSV_WIDTH];
+//        BufferedImage img =
+//    }
 
 
 }
