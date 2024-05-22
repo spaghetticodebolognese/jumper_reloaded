@@ -1,5 +1,6 @@
 package entities;
 
+import main.Game;
 import utils.LoadSave;
 
 import java.awt.*;
@@ -21,15 +22,15 @@ public class Player extends Entity{
     private int playerAction = IDLE;
 
     //for collision detection
-    private int[][] lvlData;
+    public int[][] lvlData;
 
     public Player(float x, float y, int width, int height){
         super(x, y, width, height);
         loadAnimations();
     }
 
-    private void loadAnimations(){
 
+    private void loadAnimations(){
 
             spriteSheet = LoadSave.getSpriteSheet(LoadSave.PLAYER_SPRITESHEET);
 
@@ -110,9 +111,19 @@ public class Player extends Entity{
         aniIndex = 0;
     }
 
-    private void updatePos(){
+    //felt like debugging, might delete later
+    public void testShowMeIfTileIsSolid(int[][] lvlData) {
+        System.out.print("Player X: " + this.x);
+        System.out.println(" +Speed: " + lvlData[(int) ((this.y + (this.height / 2)) / Game.TILES_SIZE)][(int) ((this.x + this.width + playerSpeed) / Game.TILES_SIZE)]);
+    }
 
+    private void updatePos(){
         moving = false;
+
+        if(!left && !right){
+            return;
+        }
+
 
         if (left && !right){
             x -= playerSpeed;

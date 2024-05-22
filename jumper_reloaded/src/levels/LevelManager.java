@@ -19,7 +19,7 @@ public class LevelManager {
 
     public LevelManager(Game game){
         this.game = game;
-        levelZero = new Level();
+        levelZero = new Level(importCsv());
 
     }
 
@@ -27,7 +27,7 @@ public class LevelManager {
         levelSprite = null;
 
         levelSprite = LoadSave.getSpriteSheet(LoadSave.TILE_SHEET_BASE_GRASS);
-        int tileSize = Game.TILES_DEFAULT_SIZE;
+        int TILE_SIZE = Game.TILES_DEFAULT_SIZE;
         int[][] csv = importCsv();
 
 
@@ -37,14 +37,16 @@ public class LevelManager {
                 if (tileIndex != -1) {
                     int tileX = tileIndex % 12;
                     int tileY = tileIndex / 12;
-                    int srcX = tileX * tileSize;
-                    int srcY = tileY * tileSize;
+                    int srcX = tileX * TILE_SIZE;
+                    int srcY = tileY * TILE_SIZE;
 
-                    g.drawImage(levelSprite.getSubimage(srcX, srcY, tileSize, tileSize), x * tileSize, y * tileSize, null);
+                    g.drawImage(levelSprite.getSubimage(srcX, srcY, TILE_SIZE, TILE_SIZE), x * TILE_SIZE, y * TILE_SIZE, null);
                 }
             }
             }
-        }
+    }
+
+
 
         public void update(){
 
@@ -72,6 +74,10 @@ public class LevelManager {
             e.printStackTrace();
         }
         return level_0_csv;
+    }
+
+    public Level getCurrentLevel(){
+        return levelZero;
     }
 
 

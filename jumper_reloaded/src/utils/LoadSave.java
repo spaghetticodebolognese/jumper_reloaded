@@ -37,8 +37,8 @@ public class LoadSave {
     }
 
 //    public static int[][] getLevelData(){
-//        int[][] lvlData = new int[LevelManager.CSV_HEIGHT][LevelManager.CSV_WIDTH];
-//        BufferedImage img =
+//        //int[][] lvlData = new int[LevelManager.CSV_HEIGHT][LevelManager.CSV_WIDTH];
+//        return LevelManager.importCsv();
 //    }
 
 

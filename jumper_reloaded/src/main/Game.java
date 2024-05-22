@@ -1,13 +1,16 @@
 package main;
 
 import entities.Player;
+import entities.Player.*;
 import levels.Level;
 import levels.LevelManager;
 import levels.LevelManager.*;
+import utils.HelpMethods;
 import utils.LoadSave;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.util.Arrays;
 
 
 public class Game implements Runnable {
@@ -22,8 +25,8 @@ public class Game implements Runnable {
 
     public final static int TILES_DEFAULT_SIZE = 32;
     public final static float SCALE = 1.0f;
-    public final static int TILES_IN_WIDTH = 26;       //change back to 26
-    public final static int TILES_IN_HEIGHT = 14;       //change back to 14
+    public final static int TILES_IN_WIDTH = 160;       //standard: 26
+    public final static int TILES_IN_HEIGHT = 14;       //standard: 14
     public final static int TILES_SIZE = (int) (TILES_DEFAULT_SIZE * SCALE);
     public final static int GAME_WIDTH = TILES_SIZE * TILES_IN_WIDTH;
     public final static int GAME_HEIGHT = TILES_SIZE * TILES_IN_HEIGHT;
@@ -40,7 +43,7 @@ public class Game implements Runnable {
     private void initClasses(){
         levelManager = new LevelManager(this);
         player = new Player(200, 256, 128, 128);
-        //player.loadLvlData(LevelManager.importCsv());
+        player.loadLvlData(LevelManager.importCsv());
     }
 
 
@@ -80,11 +83,18 @@ public class Game implements Runnable {
 
 //        String widthTest = "-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1";
 //        System.out.println("länge: " + widthTest.split(",").length);
-            //Level.importCsvInt();
+
+
+
+
 
         while(true){
-            long currentTime = System.nanoTime();
+            player.testShowMeIfTileIsSolid(player.lvlData);
+            //System.out.println(HelpMethods.canMoveHere(player.x, player.y, player.width, player.height, player.lvlData));
 
+
+
+            long currentTime = System.nanoTime();
             deltaU += (currentTime - previousTime) / timePerUpdate;
             deltaF += (currentTime - previousTime) / timePerFrame;
             previousTime = currentTime;
