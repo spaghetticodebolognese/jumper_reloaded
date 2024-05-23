@@ -25,7 +25,7 @@ public class Game implements Runnable {
 
     public final static int TILES_DEFAULT_SIZE = 32;
     public final static float SCALE = 1.0f;
-    public final static int TILES_IN_WIDTH = 160;       //standard: 26
+    public final static int TILES_IN_WIDTH = 42;       //standard: 26
     public final static int TILES_IN_HEIGHT = 14;       //standard: 14
     public final static int TILES_SIZE = (int) (TILES_DEFAULT_SIZE * SCALE);
     public final static int GAME_WIDTH = TILES_SIZE * TILES_IN_WIDTH;
@@ -42,7 +42,7 @@ public class Game implements Runnable {
 
     private void initClasses(){
         levelManager = new LevelManager(this);
-        player = new Player(200, 256, 128, 128);
+        player = new Player(200, 295, 128, 128);
         player.loadLvlData(LevelManager.importCsv());
     }
 
@@ -89,7 +89,7 @@ public class Game implements Runnable {
 
 
         while(true){
-            player.testShowMeIfTileIsSolid(player.lvlData);
+            //player.testShowMeIfTileIsSolid(player.lvlData);
             //System.out.println(HelpMethods.canMoveHere(player.x, player.y, player.width, player.height, player.lvlData));
 
 
