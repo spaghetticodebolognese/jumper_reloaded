@@ -59,7 +59,8 @@ public class LevelManager {
         String[] values;
 
         try {
-            BufferedReader buffRead = new BufferedReader(new FileReader("C:/Users/Student/VS Studio/Java/Jumper_reloaded/jumper_reloaded/jumper_reloaded/jumper_reloaded/resources/level_data/0/test_ground.csv"));
+//            BufferedReader buffRead = new BufferedReader(new FileReader("C:/Users/Student/VS Studio/Java/Jumper_reloaded/jumper_reloaded/jumper_reloaded/jumper_reloaded/resources/level_data/0/test_ground.csv"));
+            BufferedReader buffRead = new BufferedReader(new FileReader("D:/Kiwi/Coding/jumper_reloaded/jumper_reloaded/jumper_reloaded/resources/level_data/0/test_ground.csv"));
             String line;
             int lineCounter = 0;
 

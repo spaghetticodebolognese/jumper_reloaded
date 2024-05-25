@@ -15,9 +15,11 @@ public class Player extends Entity{
     private BufferedImage[][] animations;
 
     private int aniTick, aniIndex, aniSpeed = 30;
-    private boolean left, right;
+    private boolean left = false;
+    private boolean right = false;
+    private boolean lookingLeft = false;
     private boolean moving = false;
-    private boolean attacking = false;
+    public boolean attacking = false;
     private boolean jumping = false;
     private float playerSpeed = 2.0f;
     private int playerAction = IDLE;
@@ -41,9 +43,7 @@ public class Player extends Entity{
 
 
     private void loadAnimations(){
-
             spriteSheet = LoadSave.getSpriteSheet(LoadSave.PLAYER_SPRITESHEET);
-
             animations = new BufferedImage[4][6];   // 4 animations, the longest one is 6 frames
             for (int j = 0; j < animations.length; j++){
                 for (int i = 0; i < animations[j].length; i++){
@@ -67,7 +67,17 @@ public class Player extends Entity{
     }
 
     public void render(Graphics g){
+        if(left){
+            lookingLeft = true;
+        } else if(right){
+            lookingLeft = false;
+        }
+
+        if(lookingLeft){
+        g.drawImage(animations[playerAction][aniIndex], (int) (hitbox.x - xDrawOffset * 2) + width, (int) (hitbox.y - yDrawOffset * 2), - width, height, null);
+        } else {
         g.drawImage(animations[playerAction][aniIndex], (int) (hitbox.x - xDrawOffset * 2), (int) (hitbox.y - yDrawOffset * 2), width, height, null);
+        }
         //drawHitBox(g);
     }
 

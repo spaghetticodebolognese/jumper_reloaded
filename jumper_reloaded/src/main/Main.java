@@ -14,6 +14,5 @@ public class Main {
 
 //todo:
 // jump/falling animation
-// flip sprite when moving left
 // threadsafety
 // walking jiggling

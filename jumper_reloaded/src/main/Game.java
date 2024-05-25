@@ -1,5 +1,6 @@
 package main;
 
+import entities.Enemy;
 import entities.Player;
 import entities.Player.*;
 import levels.Level;
@@ -21,6 +22,9 @@ public class Game implements Runnable {
     private final int FPS_SET = 120;
     private final int UPS_SET = 200; //200
     private Player player;
+    private Enemy zombie1;
+    private Enemy zombie2;
+    private Enemy zombie3;
     private LevelManager levelManager;
 
     public final static int TILES_DEFAULT_SIZE = 32;
@@ -42,8 +46,21 @@ public class Game implements Runnable {
 
     private void initClasses(){
         levelManager = new LevelManager(this);
+
         player = new Player(200, 295, 128, 128);
         player.loadLvlData(LevelManager.importCsv());
+
+        zombie1 = new Enemy(600, 295, 128, 128);
+        zombie1.loadLvlData(LevelManager.importCsv());
+        zombie1.setPlayer(player);
+
+        zombie2 = new Enemy(700, 295, 128, 128);
+        zombie2.loadLvlData(LevelManager.importCsv());
+        zombie2.setPlayer(player);
+
+        zombie3 = new Enemy(800, 295, 128, 128);
+        zombie3.loadLvlData(LevelManager.importCsv());
+        zombie3.setPlayer(player);
     }
 
 
@@ -53,8 +70,12 @@ public class Game implements Runnable {
     }
 
 
+
     public void update(){
         player.update();
+        zombie1.update();
+        zombie2.update();
+        zombie3.update();
         levelManager.update();
     }
 
@@ -62,6 +83,9 @@ public class Game implements Runnable {
         BufferedImage bg = LoadSave.getSpriteSheet(LoadSave.BACKGROUND);
         g.drawImage(bg, 0,0, GAME_WIDTH, GAME_HEIGHT, null);
         LevelManager.drawTiles(g);
+        zombie1.render(g);
+        zombie2.render(g);
+        zombie3.render(g);
         player.render(g);
     }
 
@@ -81,17 +105,9 @@ public class Game implements Runnable {
         double deltaF = 0;      //frames
 
 
-//        String widthTest = "-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1";
-//        System.out.println("länge: " + widthTest.split(",").length);
-
-
-
 
 
         while(true){
-            //player.testShowMeIfTileIsSolid(player.lvlData);
-            //System.out.println(HelpMethods.canMoveHere(player.x, player.y, player.width, player.height, player.lvlData));
-
 
 
             long currentTime = System.nanoTime();
