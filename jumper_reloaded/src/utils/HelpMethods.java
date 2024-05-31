@@ -29,25 +29,22 @@ public class HelpMethods {
 
 
     private static boolean isSolid(float x, float y, int[][] lvlData){
-        float xIndex = x / Game.TILES_SIZE;         //vllt nur für die pixelgenaue berechnungs methode?
+        int maxWidth = lvlData[0].length * Game.TILES_SIZE;
+        int maxHeight = lvlData.length * Game.TILES_SIZE;
+
+        float xIndex = x / Game.TILES_SIZE;
         float yIndex = y / Game.TILES_SIZE;
 
-        if (x < 0 || x >= Game.GAME_WIDTH){
+        if (x < 0 || x >= maxWidth){
             return true;
         }
-        if (y < 0 || y >= Game.GAME_HEIGHT){
+        if (y < 0 || y >= maxHeight){
             return true;
         }
 
 
         int value = lvlData[(int) yIndex][(int) xIndex];
         return (value >-1);
-//        if(value > -1){                  //change to -1, when hitbox is correct size
-//            return true;            //tilesheet is 12x14 = 168 tiles
-//        } else {
-//            return false;
-//        }
-
     }
 
 
@@ -69,7 +66,7 @@ public class HelpMethods {
         if(airSpeed > 0){
             //Falling
             int tileYPos = currentTile * Game.TILES_SIZE;
-            int yOffset = (int)(Game.TILES_SIZE - hitbox.height / 2.4 ); //////
+            int yOffset = (int)(Game.TILES_SIZE - hitbox.height / 2.4);        // hitbox.height / 2.4
             return tileYPos + yOffset -1;
         } else {
             //jumping

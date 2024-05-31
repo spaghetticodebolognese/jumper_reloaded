@@ -23,7 +23,7 @@ public class LevelManager {
 
     }
 
-    public static void drawTiles(Graphics g){
+    public static void drawTiles(Graphics g, int xLvlOffset){
         levelSprite = null;
 
         levelSprite = LoadSave.getSpriteSheet(LoadSave.TILE_SHEET_BASE_GRASS);
@@ -32,15 +32,15 @@ public class LevelManager {
 
 
         for (int y = 0; y < csv.length; y++){
-            for (int x = 0; x < csv[y].length; x++){
+            for (int x = 0; x < csv[0].length; x++){
                 int tileIndex = csv[y][x];
                 if (tileIndex != -1) {
                     int tileX = tileIndex % 12;
                     int tileY = tileIndex / 12;
                     int srcX = tileX * TILE_SIZE;
                     int srcY = tileY * TILE_SIZE;
-
-                    g.drawImage(levelSprite.getSubimage(srcX, srcY, TILE_SIZE, TILE_SIZE), x * TILE_SIZE, y * TILE_SIZE, null);
+                    g.drawImage(levelSprite.getSubimage(srcX, srcY, TILE_SIZE, TILE_SIZE), (x * TILE_SIZE) - xLvlOffset, y * TILE_SIZE, null);
+//                    g.drawImage(levelSprite.getSubimage(srcX, srcY, TILE_SIZE, TILE_SIZE), (x - (xLvlOffset/32)) * TILE_SIZE, y * TILE_SIZE, null);
                 }
             }
             }
@@ -49,18 +49,17 @@ public class LevelManager {
 
 
         public void update(){
-
         }
 
 
     public static int[][] importCsv() {
-
         int[][] level_0_csv = new int[CSV_HEIGHT][CSV_WIDTH];
         String[] values;
 
         try {
-//            BufferedReader buffRead = new BufferedReader(new FileReader("C:/Users/Student/VS Studio/Java/Jumper_reloaded/jumper_reloaded/jumper_reloaded/jumper_reloaded/resources/level_data/0/test_ground.csv"));
-            BufferedReader buffRead = new BufferedReader(new FileReader("D:/Kiwi/Coding/jumper_reloaded/jumper_reloaded/jumper_reloaded/resources/level_data/0/test_ground.csv"));
+//            BufferedReader buffRead = new BufferedReader(new FileReader("/level_data/0/test_ground.csv"));
+            BufferedReader buffRead = new BufferedReader(new FileReader("C:/Users/Student/VS Studio/Java/Jumper_reloaded/jumper_reloaded/jumper_reloaded/resources/level_data/0/test_ground.csv"));
+//            BufferedReader buffRead = new BufferedReader(new FileReader("D:/Kiwi/Coding/jumper_reloaded/jumper_reloaded/jumper_reloaded/resources/level_data/0/test_ground.csv"));
             String line;
             int lineCounter = 0;
 
@@ -77,7 +76,7 @@ public class LevelManager {
         return level_0_csv;
     }
 
-    public Level getCurrentLevel(){
+    public Level getCurrentLevel(){         //for when there are more levels
         return levelZero;
     }
 

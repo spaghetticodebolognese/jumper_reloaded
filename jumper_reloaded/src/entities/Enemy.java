@@ -15,7 +15,7 @@ public class Enemy extends Entity{
 
     private BufferedImage spriteSheet;
     private BufferedImage[][] animations;
-    private Player player;              //Referenz auf die Playerinstanz für attacking
+    private Player player;              //referring to the player instance for attacking
 
     private int aniTick, aniIndex, aniSpeed = 30;
     public int[][] lvlData;
@@ -71,15 +71,15 @@ public class Enemy extends Entity{
     }
 
 
-    public void render(Graphics g){
+    public void render(Graphics g, int xLvlOffset){
         if(visible){
             if (!dying && !disappearing) {
                 lookingLeft = player.getHitbox().x < hitbox.x;
             }
             if (lookingLeft) {
-                g.drawImage(animations[zombieAction][aniIndex], (int) (hitbox.x - xDrawOffset * 2) + width, (int) (hitbox.y - yDrawOffset * 2), -width, height, null);
+                g.drawImage(animations[zombieAction][aniIndex], (int) (hitbox.x - xDrawOffset * 2) - xLvlOffset + width, (int) (hitbox.y - yDrawOffset * 2), -width, height, null);
             } else {
-                g.drawImage(animations[zombieAction][aniIndex], (int) (hitbox.x - xDrawOffset * 2), (int) (hitbox.y - yDrawOffset * 2), width, height, null);
+                g.drawImage(animations[zombieAction][aniIndex], (int) (hitbox.x - xDrawOffset * 2) - xLvlOffset, (int) (hitbox.y - yDrawOffset * 2), width, height, null);
             }
         }
 

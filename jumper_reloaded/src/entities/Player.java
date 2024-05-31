@@ -41,7 +41,7 @@ public class Player extends Entity{
         initHitbox(x, y, 26 * Game.SCALE, 54 * Game.SCALE);
     }
 
-
+    //Inside Player Class
     private void loadAnimations(){
             spriteSheet = LoadSave.getSpriteSheet(LoadSave.PLAYER_SPRITESHEET);
             animations = new BufferedImage[4][6];   // 4 animations, the longest one is 6 frames
@@ -66,7 +66,7 @@ public class Player extends Entity{
         setAnimation();
     }
 
-    public void render(Graphics g){
+    public void render(Graphics g, int xLvlOffset){
         if(left){
             lookingLeft = true;
         } else if(right){
@@ -74,11 +74,11 @@ public class Player extends Entity{
         }
 
         if(lookingLeft){
-        g.drawImage(animations[playerAction][aniIndex], (int) (hitbox.x - xDrawOffset * 2) + width, (int) (hitbox.y - yDrawOffset * 2), - width, height, null);
+        g.drawImage(animations[playerAction][aniIndex], (int) (hitbox.x - xDrawOffset * 2) - xLvlOffset  + width, (int) (hitbox.y - yDrawOffset * 2), - width, height, null);
         } else {
-        g.drawImage(animations[playerAction][aniIndex], (int) (hitbox.x - xDrawOffset * 2), (int) (hitbox.y - yDrawOffset * 2), width, height, null);
+        g.drawImage(animations[playerAction][aniIndex], (int) (hitbox.x - xDrawOffset * 2) - xLvlOffset, (int) (hitbox.y - yDrawOffset * 2), width, height, null);
         }
-        //drawHitBox(g);
+        drawHitBox(g, xLvlOffset);
     }
 
 
@@ -132,12 +132,7 @@ public class Player extends Entity{
         aniIndex = 0;
     }
 
-    //felt like debugging, might delete later
-//    public void testShowMeIfTileIsSolid(int[][] lvlData) {
-//        if (lvlData[(int) ((this.y + (this.height / 2)) / Game.TILES_SIZE)][(int) ((this.x + this.width + playerSpeed) / Game.TILES_SIZE)] != -1) {
-//            System.out.println("next Tile: " + lvlData[(int) ((this.y + (this.height / 2)) / Game.TILES_SIZE)][(int) ((this.x + this.width + playerSpeed) / Game.TILES_SIZE)]);
-//        }
-//    }
+
 
     private void updatePos(){
         moving = false;
@@ -148,8 +143,14 @@ public class Player extends Entity{
 
         float xSpeed = 0;
 
-        if(!left && !right && !inAir){
-            return;
+//        if(!left && !right && !inAir){
+//            return;
+//        }
+
+        if(!inAir){
+            if(!left && !right || right && left){
+                return;
+            }
         }
 
         if (left){
