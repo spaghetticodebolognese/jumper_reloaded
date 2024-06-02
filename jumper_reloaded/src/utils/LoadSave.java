@@ -10,10 +10,15 @@ import java.io.InputStream;
 
 public class LoadSave {
 
-    public static final String ZOMBIE_SPRITESHEET = "Pale Moon/Creatures/Zombie/zombie_spritesheet.png";
     public static final String BACKGROUND = "the dark forest/Background/Night.png";
-    public static final String TILE_SHEET_BASE_GRASS = "Pale Moon/Image Sheets/base_grass_tiles.png" ;
+
     public static final String PLAYER_SPRITESHEET = "crow Animations/crow_spritesheet.png";
+    public static final String ZOMBIE_SPRITESHEET = "Pale Moon/Creatures/Zombie/zombie_spritesheet.png";
+
+    public static final String TILE_SHEET_BASE_GRASS = "Pale Moon/Image Sheets/base_grass_tiles.png";
+    public static final String TILE_SHEET_CEMETERY = "Pale Moon/Image Sheets/cemetery_sprites.png";
+    public static final String TILE_SHEET_NATURE = "Pale Moon/Image Sheets/nature_sprites.png";
+    public static final String TILE_SHEET_STRUCTURE = "Pale Moon/Image Sheets/structure_tiles.png";
 
     public static BufferedImage getSpriteSheet(String fileName){
         BufferedImage image = null;

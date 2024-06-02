@@ -78,7 +78,7 @@ public class Player extends Entity{
         } else {
         g.drawImage(animations[playerAction][aniIndex], (int) (hitbox.x - xDrawOffset * 2) - xLvlOffset, (int) (hitbox.y - yDrawOffset * 2), width, height, null);
         }
-        drawHitBox(g, xLvlOffset);
+//        drawHitBox(g, xLvlOffset);
     }
 
 
@@ -142,10 +142,6 @@ public class Player extends Entity{
         }
 
         float xSpeed = 0;
-
-//        if(!left && !right && !inAir){
-//            return;
-//        }
 
         if(!inAir){
             if(!left && !right || right && left){

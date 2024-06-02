@@ -25,6 +25,7 @@ public class Enemy extends Entity{
     private boolean dying = false;
     private boolean lookingLeft = false;
     private boolean moving = false;
+    private boolean spawning = false;
     private boolean spawned = false;
     private boolean visible = false;
     private float enemySpeed = 0.5f;
@@ -128,11 +129,14 @@ public class Enemy extends Entity{
         int startAni = zombieAction;
 
         if(!spawned && Math.abs(player.getHitbox().x - hitbox.x) < 300){
-            zombieAction = UPRISE;
-            visible = true;
-            if(animations[zombieAction][aniIndex] == animations[UPRISE][11]){
-                moving = true;
-                spawned = true;
+            spawning = true;
+            if (spawning){
+                zombieAction = UPRISE;
+                visible = true;
+                if(animations[zombieAction][aniIndex] == animations[UPRISE][11]){
+                    moving = true;
+                    spawned = true;
+                }
             }
         }
 

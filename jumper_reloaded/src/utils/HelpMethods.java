@@ -66,7 +66,7 @@ public class HelpMethods {
         if(airSpeed > 0){
             //Falling
             int tileYPos = currentTile * Game.TILES_SIZE;
-            int yOffset = (int)(Game.TILES_SIZE - hitbox.height / 2.4);        // hitbox.height / 2.4
+            int yOffset = (int)(Game.TILES_SIZE - hitbox.height / 2.5);        // hitbox.height / 2.5
             return tileYPos + yOffset -1;
         } else {
             //jumping

@@ -12,35 +12,40 @@ public class LevelManager {
 
     private Game game;
     private static BufferedImage levelSprite;
-    private Level levelZero;
+    private Level levelOneGround;
 
-    public final static int CSV_WIDTH = 150;
-    public final static int CSV_HEIGHT = 16;
+    public final static int CSV_WIDTH = 180;
+    public final static int CSV_HEIGHT = 120;
+
+    public static final String LVL_01_GROUND = "D:/Kiwi/Coding/jumper_reloaded/jumper_reloaded/jumper_reloaded/resources/level_data/01/180x120ground.csv";
+    public static final String LVL_01_GRAVES = "D:/Kiwi/Coding/jumper_reloaded/jumper_reloaded/jumper_reloaded/resources/level_data/01/180x120graves.csv";
+    public static final String LVL_01_STRUCTURES = "D:/Kiwi/Coding/jumper_reloaded/jumper_reloaded/jumper_reloaded/resources/level_data/01/180x120structures.csv";
+    public static final String LVL_01_TREES01 = "D:/Kiwi/Coding/jumper_reloaded/jumper_reloaded/jumper_reloaded/resources/level_data/01/180x120trees.csv";
+    public static final String LVL_01_TREES02 = "D:/Kiwi/Coding/jumper_reloaded/jumper_reloaded/jumper_reloaded/resources/level_data/01/180x120trees2.csv";
 
     public LevelManager(Game game){
         this.game = game;
-        levelZero = new Level(importCsv());
+        levelOneGround = new Level(importCsv(LVL_01_GROUND));
 
     }
 
-    public static void drawTiles(Graphics g, int xLvlOffset){
+    public static void drawTiles(Graphics g, int xLvlOffset, String fileNameCSV, String fileNameTilesheet, int tilesWidthInSpritesheet){
         levelSprite = null;
 
-        levelSprite = LoadSave.getSpriteSheet(LoadSave.TILE_SHEET_BASE_GRASS);
+        levelSprite = LoadSave.getSpriteSheet(fileNameTilesheet);
         int TILE_SIZE = Game.TILES_DEFAULT_SIZE;
-        int[][] csv = importCsv();
+        int[][] csv = importCsv(fileNameCSV);
 
 
         for (int y = 0; y < csv.length; y++){
             for (int x = 0; x < csv[0].length; x++){
                 int tileIndex = csv[y][x];
                 if (tileIndex != -1) {
-                    int tileX = tileIndex % 12;
-                    int tileY = tileIndex / 12;
+                    int tileX = tileIndex % tilesWidthInSpritesheet;
+                    int tileY = tileIndex / tilesWidthInSpritesheet;
                     int srcX = tileX * TILE_SIZE;
                     int srcY = tileY * TILE_SIZE;
                     g.drawImage(levelSprite.getSubimage(srcX, srcY, TILE_SIZE, TILE_SIZE), (x * TILE_SIZE) - xLvlOffset, y * TILE_SIZE, null);
-//                    g.drawImage(levelSprite.getSubimage(srcX, srcY, TILE_SIZE, TILE_SIZE), (x - (xLvlOffset/32)) * TILE_SIZE, y * TILE_SIZE, null);
                 }
             }
             }
@@ -48,36 +53,37 @@ public class LevelManager {
 
 
 
-        public void update(){
-        }
+    public void update(){
+    }
 
 
-    public static int[][] importCsv() {
-        int[][] level_0_csv = new int[CSV_HEIGHT][CSV_WIDTH];
+    public static int[][] importCsv(String filename) {
+        int[][] level_csv = new int[CSV_HEIGHT][CSV_WIDTH];
         String[] values;
 
         try {
 //            BufferedReader buffRead = new BufferedReader(new FileReader("/level_data/0/test_ground.csv"));
-            BufferedReader buffRead = new BufferedReader(new FileReader("C:/Users/Student/VS Studio/Java/Jumper_reloaded/jumper_reloaded/jumper_reloaded/resources/level_data/0/test_ground.csv"));
+//            BufferedReader buffRead = new BufferedReader(new FileReader("C:/Users/Student/VS Studio/Java/Jumper_reloaded/jumper_reloaded/jumper_reloaded/resources/level_data/0/test_ground.csv"));
 //            BufferedReader buffRead = new BufferedReader(new FileReader("D:/Kiwi/Coding/jumper_reloaded/jumper_reloaded/jumper_reloaded/resources/level_data/0/test_ground.csv"));
+            BufferedReader buffRead = new BufferedReader(new FileReader(filename));
             String line;
             int lineCounter = 0;
 
             while ((line = buffRead.readLine()) != null) {
                 values = line.split(",");
                 for (int i = 0; i < values.length; i++){
-                    level_0_csv[lineCounter][i] = Integer.parseInt(values[i]);
+                    level_csv[lineCounter][i] = Integer.parseInt(values[i]);
                 }
                 lineCounter++;
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return level_0_csv;
+        return level_csv;
     }
 
     public Level getCurrentLevel(){         //for when there are more levels
-        return levelZero;
+        return levelOneGround;
     }
 
 

@@ -15,5 +15,10 @@ public class Main {
 //todo:
 // jump/falling animation
 // threadsafety
-// walking jiggling
+// zombie gravity
+// fixing zombie being stuck in spawn animation when player is too far away
+// y scrolling
+// zombie attack collision detecion checking y
+// new enemies... =)
+
 

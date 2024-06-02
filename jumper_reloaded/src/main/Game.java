@@ -23,14 +23,16 @@ public class Game implements Runnable {
     private final int UPS_SET = 200; //200
     private Player player;
     private Enemy zombie1;
-//    private Enemy zombie2;
-//    private Enemy zombie3;
+    private Enemy zombie2;
+    private Enemy zombie3;
+    private Enemy zombie4;
+    private Enemy zombie5;
     private LevelManager levelManager;
 
     public final static int TILES_DEFAULT_SIZE = 32;
     public final static float SCALE = 1.0f;
-    public final static int TILES_IN_WIDTH = 26;       //standard: 26
-    public final static int TILES_IN_HEIGHT = 14;       //standard: 14
+    public final static int TILES_IN_WIDTH = 40;       //standard: 26
+    public final static int TILES_IN_HEIGHT = 24;       //standard: 14
     public final static int TILES_SIZE = (int) (TILES_DEFAULT_SIZE * SCALE);
     public final static int GAME_WIDTH = TILES_SIZE * TILES_IN_WIDTH;
     public final static int GAME_HEIGHT = TILES_SIZE * TILES_IN_HEIGHT;
@@ -38,9 +40,9 @@ public class Game implements Runnable {
 
     //for scrolling the level
     private int xLvlOffset;
-    private int leftBorder = (int) (0.2 * GAME_WIDTH);
-    private int rightBorder = (int) (0.8 * GAME_WIDTH);
-    private int lvlTilesWide = LevelManager.importCsv()[0].length;
+    private int leftBorder = (int) (0.35 * GAME_WIDTH);
+    private int rightBorder = (int) (0.65 * GAME_WIDTH);
+    private int lvlTilesWide = LevelManager.importCsv(LevelManager.LVL_01_GROUND)[0].length;
     private int maxTilesOffset = lvlTilesWide - TILES_IN_WIDTH;                //amount of tiles - what we can see
     private int maxLvlOffset = maxTilesOffset * TILES_SIZE;
 
@@ -58,11 +60,27 @@ public class Game implements Runnable {
         levelManager = new LevelManager(this);
 
         player = new Player(200, 295, 128, 128);
-        player.loadLvlData(LevelManager.importCsv());
+        player.loadLvlData(LevelManager.importCsv(LevelManager.LVL_01_GROUND));
 
-        zombie1 = new Enemy(600, 295, 128, 128);
-        zombie1.loadLvlData(LevelManager.importCsv());
+        zombie1 = new Enemy(3668, 585, 128, 128);
+        zombie1.loadLvlData(LevelManager.importCsv(LevelManager.LVL_01_GROUND));
         zombie1.setPlayer(player);
+
+        zombie2 = new Enemy(3800, 585, 128, 128);
+        zombie2.loadLvlData(LevelManager.importCsv(LevelManager.LVL_01_GROUND));
+        zombie2.setPlayer(player);
+
+        zombie3 = new Enemy(4000, 585, 128, 128);
+        zombie3.loadLvlData(LevelManager.importCsv(LevelManager.LVL_01_GROUND));
+        zombie3.setPlayer(player);
+
+        zombie4 = new Enemy(4330, 585, 128, 128);
+        zombie4.loadLvlData(LevelManager.importCsv(LevelManager.LVL_01_GROUND));
+        zombie4.setPlayer(player);
+
+        zombie5 = new Enemy(5542, 585, 128, 128);
+        zombie5.loadLvlData(LevelManager.importCsv(LevelManager.LVL_01_GROUND));
+        zombie5.setPlayer(player);
     }
 
 
@@ -77,6 +95,10 @@ public class Game implements Runnable {
         checkCloseToBorder();
         player.update();
         zombie1.update();
+        zombie2.update();
+        zombie3.update();
+        zombie4.update();
+        zombie5.update();
         levelManager.update();
     }
 
@@ -95,14 +117,22 @@ public class Game implements Runnable {
         } else if (xLvlOffset < 0){
             xLvlOffset = 0;
         }
-        System.out.println("Diff: " + diff  + " xlvloffset: " + xLvlOffset + " xlvloffset/32: " + xLvlOffset/32);
+
     }
 
     public void render(Graphics g){
         BufferedImage bg = LoadSave.getSpriteSheet(LoadSave.BACKGROUND);
         g.drawImage(bg, 0,0, GAME_WIDTH, GAME_HEIGHT, null);
-        LevelManager.drawTiles(g, xLvlOffset);
+        LevelManager.drawTiles(g, xLvlOffset, LevelManager.LVL_01_GROUND, LoadSave.TILE_SHEET_BASE_GRASS, 12);
+        LevelManager.drawTiles(g, xLvlOffset, LevelManager.LVL_01_GRAVES, LoadSave.TILE_SHEET_CEMETERY, 10);
+        LevelManager.drawTiles(g, xLvlOffset, LevelManager.LVL_01_STRUCTURES, LoadSave.TILE_SHEET_STRUCTURE, 6);
+        LevelManager.drawTiles(g, xLvlOffset, LevelManager.LVL_01_TREES01, LoadSave.TILE_SHEET_NATURE, 20);
+        LevelManager.drawTiles(g, xLvlOffset, LevelManager.LVL_01_TREES02, LoadSave.TILE_SHEET_NATURE, 20);
         zombie1.render(g, xLvlOffset);
+        zombie2.render(g, xLvlOffset);
+        zombie3.render(g, xLvlOffset);
+        zombie4.render(g, xLvlOffset);
+        zombie5.render(g, xLvlOffset);
         player.render(g, xLvlOffset);
     }
 
@@ -122,8 +152,8 @@ public class Game implements Runnable {
         double deltaF = 0;      //frames
 
 
-
         while(true){
+//        System.out.println("X: " + player.getHitbox().x + " Y:" + player.getHitbox().y);
 
 
             long currentTime = System.nanoTime();
