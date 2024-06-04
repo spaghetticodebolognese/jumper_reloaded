@@ -72,15 +72,15 @@ public class Enemy extends Entity{
     }
 
 
-    public void render(Graphics g, int xLvlOffset){
+    public void render(Graphics g, int xLvlOffset, int yLvlOffset){
         if(visible){
             if (!dying && !disappearing) {
                 lookingLeft = player.getHitbox().x < hitbox.x;
             }
             if (lookingLeft) {
-                g.drawImage(animations[zombieAction][aniIndex], (int) (hitbox.x - xDrawOffset * 2) - xLvlOffset + width, (int) (hitbox.y - yDrawOffset * 2), -width, height, null);
+                g.drawImage(animations[zombieAction][aniIndex], (int) (hitbox.x - xDrawOffset * 2) - xLvlOffset + width, (int) (hitbox.y - yDrawOffset * 2) - yLvlOffset, -width, height, null);
             } else {
-                g.drawImage(animations[zombieAction][aniIndex], (int) (hitbox.x - xDrawOffset * 2) - xLvlOffset, (int) (hitbox.y - yDrawOffset * 2), width, height, null);
+                g.drawImage(animations[zombieAction][aniIndex], (int) (hitbox.x - xDrawOffset * 2) - xLvlOffset, (int) (hitbox.y - yDrawOffset * 2) - yLvlOffset, width, height, null);
             }
         }
 

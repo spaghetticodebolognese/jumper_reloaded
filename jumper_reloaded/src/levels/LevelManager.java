@@ -20,6 +20,8 @@ public class LevelManager {
     public static final String LVL_01_GROUND = "D:/Kiwi/Coding/jumper_reloaded/jumper_reloaded/jumper_reloaded/resources/level_data/01/180x120ground.csv";
     public static final String LVL_01_GRAVES = "D:/Kiwi/Coding/jumper_reloaded/jumper_reloaded/jumper_reloaded/resources/level_data/01/180x120graves.csv";
     public static final String LVL_01_STRUCTURES = "D:/Kiwi/Coding/jumper_reloaded/jumper_reloaded/jumper_reloaded/resources/level_data/01/180x120structures.csv";
+    public static final String LVL_01_STRUCTURES02 = "D:/Kiwi/Coding/jumper_reloaded/jumper_reloaded/jumper_reloaded/resources/level_data/01/180x120structures2.csv";
+    public static final String LVL_01_STRUCTURES_LADDER = "D:/Kiwi/Coding/jumper_reloaded/jumper_reloaded/jumper_reloaded/resources/level_data/01/180x120structures_ladder.csv";
     public static final String LVL_01_TREES01 = "D:/Kiwi/Coding/jumper_reloaded/jumper_reloaded/jumper_reloaded/resources/level_data/01/180x120trees.csv";
     public static final String LVL_01_TREES02 = "D:/Kiwi/Coding/jumper_reloaded/jumper_reloaded/jumper_reloaded/resources/level_data/01/180x120trees2.csv";
 
@@ -29,7 +31,7 @@ public class LevelManager {
 
     }
 
-    public static void drawTiles(Graphics g, int xLvlOffset, String fileNameCSV, String fileNameTilesheet, int tilesWidthInSpritesheet){
+    public static void drawTiles(Graphics g, int xLvlOffset, int yLvlOffset, String fileNameCSV, String fileNameTilesheet, int tilesWidthInSpritesheet){
         levelSprite = null;
 
         levelSprite = LoadSave.getSpriteSheet(fileNameTilesheet);
@@ -45,7 +47,7 @@ public class LevelManager {
                     int tileY = tileIndex / tilesWidthInSpritesheet;
                     int srcX = tileX * TILE_SIZE;
                     int srcY = tileY * TILE_SIZE;
-                    g.drawImage(levelSprite.getSubimage(srcX, srcY, TILE_SIZE, TILE_SIZE), (x * TILE_SIZE) - xLvlOffset, y * TILE_SIZE, null);
+                    g.drawImage(levelSprite.getSubimage(srcX, srcY, TILE_SIZE, TILE_SIZE), (x * TILE_SIZE) - xLvlOffset, y * TILE_SIZE - yLvlOffset, null);
                 }
             }
             }
